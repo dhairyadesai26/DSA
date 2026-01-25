@@ -15,7 +15,7 @@ public:
     int count=0;
     if(root==NULL) return 0;
     if(root->val>=maxSoFar){
-        count++;
+        count=1;
         maxSoFar=root->val;
     }
     count+=dfs(root->left,maxSoFar);
