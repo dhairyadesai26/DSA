@@ -1,33 +1,16 @@
 class Solution {
 public:
-
-    void generateBinaryStrings(int n, string current_string, vector<string>& result) {
-        if (current_string.length() == n) {
-            result.push_back(current_string);
-            return;
-        }
-
-        generateBinaryStrings(n, current_string + "0", result);
-        generateBinaryStrings(n, current_string + "1", result);
-    }
-
     string findDifferentBinaryString(vector<string>& nums) {
         int n = nums.size();
+        string ans = "";
 
-        vector<string> unique_strings;
-        generateBinaryStrings(n, "", unique_strings);
+        for(int i = 0; i < n; i++) {
+            if(nums[i][i] == '0')
+                ans += '1';
+            else
+                ans += '0';
+        }
 
-        vector<string> difference;
-
-        sort(unique_strings.begin(), unique_strings.end());
-        sort(nums.begin(), nums.end());
-
-        set_difference(
-            unique_strings.begin(), unique_strings.end(),
-            nums.begin(), nums.end(),
-            inserter(difference, difference.begin())
-        );
-
-        return difference[0];
+        return ans;
     }
 };
