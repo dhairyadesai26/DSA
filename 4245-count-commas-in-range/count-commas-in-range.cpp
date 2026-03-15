@@ -5,7 +5,7 @@ public:
         if(n<1000){
             return 0;
         }
-        return ( (n % mod - 999 % mod + mod) % mod );
+        return (n-999);
        
     }
 };
