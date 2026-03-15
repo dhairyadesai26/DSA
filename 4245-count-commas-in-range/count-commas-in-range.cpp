@@ -1,12 +1,11 @@
 class Solution {
 public:
     int countCommas(int n) {
-        string s=to_string(n);
-        int m=s.size();
+        long long mod = 1000000007;
         if(n<1000){
             return 0;
         }
-        return ( n-999);
+        return ( (n % mod - 999 % mod + mod) % mod );
        
     }
 };
