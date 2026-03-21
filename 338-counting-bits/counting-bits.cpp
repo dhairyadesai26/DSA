@@ -3,7 +3,7 @@ public:
  int solve(int i){
     string s="";
     while(i!=0){
-        s+=char(i%2);
+        s+=char((i%2) +'0');
         i=i/2;
 
     }
@@ -11,7 +11,7 @@ public:
     int n=s.size();
     int count=0;
     for(int i=0;i<n;i++){
-        if(s[i]=='\1'){
+        if(s[i]=='1'){
             count++;
         }
     }
