@@ -6,24 +6,19 @@ public:
 
         k = k % n; 
 
-        vector<vector<int>> grid = mat;
-
-        while (k--) {
-            vector<vector<int>> temp = grid;
-
             for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++) {
 
                     if (i % 2 == 0) {
-                        grid[i][j] = temp[i][(j + 1) % n];   
+                        if(mat[i][j] != mat[i][(j + k) % n]) return false;   
                     } else {
-                        grid[i][j] = temp[i][(j - 1 + n) % n];
+                        if(mat[i][j] != mat[i][(j - k + n) % n])  return false;
                     }
 
                 }
             }
-        }
+        
 
-        return grid == mat;
+        return true;
     }
 };
