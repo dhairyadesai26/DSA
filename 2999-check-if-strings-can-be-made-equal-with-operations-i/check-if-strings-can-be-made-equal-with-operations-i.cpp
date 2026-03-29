@@ -1,29 +1,15 @@
 class Solution {
 public:
     bool canBeEqual(string s1, string s2) {
-        //check for pre-match
-        if(s1==s2){
-            return true;
-        }
-        // check that if s1 can be made equal to s2
-        for(int i=0;i<s1.size()-1;i++){
-            for(int j=i+1;j<s1.size();j++){
-                 if(j-i==2){
-                    swap(s1[i],s1[j]);
-                 }
-                 if(s1==s2) return true;
-            }
-        }
-            // check that if s2 can be made equal to s1
-          for(int i=0;i<s2.size()-1;i++){
-            for(int j=i+1;j<s2.size();j++){
-                 if(j-i==2){
-                    swap(s2[i],s2[j]);
-                 }
-                 if(s1==s2) return true;
-            }
-        }
-        // cannot be made equal
-        return false;
+
+        // check even indices (0,2)
+        bool evenMatch = (s1[0] == s2[0] && s1[2] == s2[2]) ||
+                         (s1[0] == s2[2] && s1[2] == s2[0]);
+
+        // check odd indices (1,3)
+        bool oddMatch = (s1[1] == s2[1] && s1[3] == s2[3]) ||
+                        (s1[1] == s2[3] && s1[3] == s2[1]);
+
+        return evenMatch && oddMatch;
     }
 };
