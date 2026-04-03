@@ -1,54 +1,42 @@
 class Solution {
 public:
+int m;
+int n;
+int t[501][501][3];
+int solve(vector<vector<int>>& coins,int i,int j,int neu){
+    if(i==m-1 && j==n-1){
+         if(coins[i][j]<0 && neu>0 ){
+            return 0;
+         }
+         return coins[i][j];
+    }
+    if(i>=m || j>=n){
+        return INT_MIN;
+    }
+    if(t[i][j][neu]!=INT_MIN){
+        return t[i][j][neu];
+    }
+     int take=coins[i][j]+max(solve(coins,i+1,j,neu),solve(coins,i,j+1,neu));
+     int skip=INT_MIN;
+     if(coins[i][j]<0 && neu>0){
+        int skipdown=solve(coins,i+1,j,neu-1);
+        int skipright=solve(coins,i,j+1,neu-1);
+        skip=max(skipdown,skipright);
+     }
+     return t[i][j][neu]=max(take,skip);
+
+}
     int maximumAmount(vector<vector<int>>& coins) {
-        int n = coins.size();
-        int m = coins[0].size();
-
-        // dp[i][j][k] → max coins at (i,j) using k neutralizations
-        vector<vector<vector<int>>> dp(n, vector<vector<int>>(m, vector<int>(3, INT_MIN)));
-
-        // Start
-        for(int k = 0; k < 3; k++) {
-            if(coins[0][0] < 0 && k > 0)
-                dp[0][0][k] = 0; // neutralize
-            else
-                dp[0][0][k] = coins[0][0];
-        }
-
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                for(int k = 0; k <= 2; k++) {
-
-                    if(i == 0 && j == 0) continue;
-
-                    int val = coins[i][j];
-
-                    // From top
-                    if(i > 0) {
-                        // take normally
-                        if(dp[i-1][j][k] != INT_MIN)
-                            dp[i][j][k] = max(dp[i][j][k], dp[i-1][j][k] + val);
-
-                        // neutralize if negative
-                        if(val < 0 && k > 0 && dp[i-1][j][k-1] != INT_MIN)
-                            dp[i][j][k] = max(dp[i][j][k], dp[i-1][j][k-1]);
-                    }
-
-                    // From left
-                    if(j > 0) {
-                        // take normally
-                        if(dp[i][j-1][k] != INT_MIN)
-                            dp[i][j][k] = max(dp[i][j][k], dp[i][j-1][k] + val);
-
-                        // neutralize if negative
-                        if(val < 0 && k > 0 && dp[i][j-1][k-1] != INT_MIN)
-                            dp[i][j][k] = max(dp[i][j][k], dp[i][j-1][k-1]);
-                    }
-                }
+        m=coins.size();
+        n=coins[0].size();
+       for(int i=0;i<501;i++){
+        for(int j=0;j<501;j++){
+            for(int k=0;k<3;k++){
+                t[i][j][k]=INT_MIN;
             }
         }
-
-        // Answer = max over k = 0,1,2
-        return max({dp[n-1][m-1][0], dp[n-1][m-1][1], dp[n-1][m-1][2]});
+       }
+       return solve(coins,0,0,2);
+       
     }
 };
