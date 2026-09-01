@@ -4,8 +4,8 @@ public:
         if(s.length()!=t.length()){
             return false;
         }
-        unordered_map<char,char> mp1;
-        unordered_map<char,char> mp2;
+        unordered_map<char,int> mp1;
+        unordered_map<char,int> mp2;
         for(int i=0;i<s.length();i++){
             mp1[s[i]]=-1;
             mp2[t[i]]=-1;
