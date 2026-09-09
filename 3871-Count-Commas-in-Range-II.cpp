@@ -1,12 +1,14 @@
 class Solution {
 public:
+typedef long long ll;
     long long countCommas(long long n) {
-        if(n<1000) return 0;
-        if(n<1000000) return n-999;
-        if(n<pow(10,9)) return 2*(n-99999) + (99999-999);
-        if(n<pow(10,12)) return 3*(n-99999999)+2*(99999999-99999) + (99999-999);
-        if(n<pow(10,15)) return  4*(n-99999999999)+3*(99999999999-99999999)+2*(99999999-99999) + (99999-999);
-        return  5+4*(99999999999999-99999999999)+3*(99999999999-99999999)+2*(99999999-99999) + (99999-999);
+        ll result=0;
+        ll start=1000;
+        while(start<=n){
+            result+=(n-start+1);
+            start*=1000;
+        }
+        return result;
         
     }
 };
